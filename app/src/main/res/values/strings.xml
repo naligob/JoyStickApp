@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">remotejoystick</string>
     <string name="part_command">set /controls/</string>
-    <string name="aileron_addition">flight/aileron </string>
-    <string name="elevator_addition">flight/elevator </string>
-    <string name="rudder_addition">flight/rudder </string>
-    <string name="throttle_addition">engines/current-engine/throttle </string>
+    <string name="aileron_addition">set /controls/flight/aileron </string>
+    <string name="elevator_addition">set /controls/flight/elevator </string>
+    <string name="rudder_addition">set /controls/flight/rudder </string>
+    <string name="throttle_addition">set /controls/engines/current-engine/throttle </string>
     <string name="windows_line_separator">\\r\\n</string>
+    <string name="port">Port</string>
+    <string name="ip">IP</string>
+    <string name="connect">Connect</string>
 </resources>

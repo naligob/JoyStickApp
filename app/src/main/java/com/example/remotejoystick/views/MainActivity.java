@@ -1,44 +1,45 @@
 package com.example.remotejoystick.views;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.DataBindingUtil;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.util.Log;
+import android.view.View;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.example.remotejoystick.R;
-import com.example.remotejoystick.model.CommandDP.*;
-import com.example.remotejoystick.model.FGClient;
-
-import java.io.PrintWriter;
-import java.util.HashMap;
+import com.example.remotejoystick.databinding.ActivityMainBinding;
+import com.example.remotejoystick.model.AppModel;
+import com.example.remotejoystick.viewmodel.AppViewModel;
 
 public class MainActivity extends AppCompatActivity {
+    private AppViewModel mAppViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        FGClient fg = new FGClient("10.100.102.11",6400);
-        HashMap<String, Command> map = new HashMap<>();
-        initializeMap(map);
-        new Thread(() ->{
-            fg.Connect();
-            fg.setWriterForMap(map);
-            SystemClock.sleep(5000);
-            fg.close();
-        }).start();
+        mAppViewModel = new AppViewModel();
+        ActivityMainBinding activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        activityMainBinding.setViewModel(mAppViewModel);
+        activityMainBinding.executePendingBindings();
+
+        JoyStick joyStick = findViewById(R.id.JS);
+        joyStick.setListener(mAppViewModel);
+
+        SeekBar seekBar1 = findViewById(R.id.rudderSB);
+        seekBar1.setOnSeekBarChangeListener(mAppViewModel);
+
+        SeekBar seekBar2 = findViewById(R.id.throttleSB);
+        seekBar2.setOnSeekBarChangeListener(mAppViewModel);
     }
 
-    private void initializeMap(HashMap<String, Command> map){
-        String partCommand = getString(R.string.part_command);
-        ThrottleUpdate thr = new ThrottleUpdate(null, partCommand,getString(R.string.throttle_addition));
-        map.put("throttle",thr);
-        RudderUpdate rud = new RudderUpdate(null, partCommand,getString(R.string.rudder_addition));
-        map.put("rudder",rud);
-        ElevatorUpdate ele = new ElevatorUpdate(null, partCommand,getString(R.string.elevator_addition));
-        map.put("elevator",ele);
-        AileronUpdate ail = new AileronUpdate(null, partCommand,getString(R.string.aileron_addition));
-        map.put("aileron",ail);
+    @BindingAdapter({"toastMessage"})
+    public static void showToast(View view, String message) {
+        if (message != null)
+            Toast.makeText(view.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 }
