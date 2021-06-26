@@ -15,7 +15,6 @@ import com.example.remotejoystick.R;
 import com.example.remotejoystick.databinding.ActivityMainBinding;
 import com.example.remotejoystick.model.AppModel;
 import com.example.remotejoystick.viewmodel.AppViewModel;
-
 public class MainActivity extends AppCompatActivity {
     private AppViewModel mAppViewModel;
 

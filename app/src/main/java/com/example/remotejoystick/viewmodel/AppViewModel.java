@@ -48,22 +48,16 @@ public class AppViewModel extends BaseObservable implements JoyStick.JoystickLis
     public void afterPortTextChanged(CharSequence s) {mAppModel.setPort((Integer.parseInt(s.toString())));}
 
     public void onLoginClicked() {
-        setToastMessage(loginMessage);
+//        setToastMessage(loginMessage);
 //            SystemClock.sleep(1500);
         if (Utils.valid_IP_Port(mAppModel.getIP(),mAppModel.getPort())) {
-            Log.d("AppModel", "onLoginClicked: IP: " + mAppModel.getIP()
-                + " valid: " + mAppModel.getPort());
+//            Log.d("AppModel", "onLoginClicked: IP: " + mAppModel.getIP()
+//                + " valid: " + mAppModel.getPort());
             mAppModel.connect();
-            Log.d("AppModel", "onLoginClicked: after connection");
-            if(mAppModel.getmIsConnected()){
-                setToastMessage(successMessage);
-            }
-            else {
-                setToastMessage(errorMessage);
-                Log.d("AppModel", "onLoginClicked:valid_IP_Port: IP or Port not valid");
-            }
+//            Log.d("AppModel", "onLoginClicked: after connection");
+
         } else {
-            setToastMessage(errorMessage);
+//            setToastMessage(errorMessage);
             Log.d("AppModel", "onLoginClicked:valid_IP_Port: IP or Port not valid");
         }
     }
