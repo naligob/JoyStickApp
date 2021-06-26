@@ -8,7 +8,7 @@ import java.net.*;
 import java.io.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+//10.100.102.6
 public class AppModel {
 
     private String mIP;
@@ -42,6 +42,10 @@ public class AppModel {
         this.mPort = port;
     }
 
+    public boolean getmIsConnected(){
+        return this.mIsConnected;
+    }
+
     public void connect() {
         if (!mIsConnected) {
             mExecutor.execute(() -> {
@@ -66,7 +70,7 @@ public class AppModel {
                 try {
                     mOut.print("set /controls/engines/current-engine/throttle " + data + "\r\n");
                     mOut.flush();
-//                    Log.d("AppModel", "sendThr: " + data);
+                    Log.d("AppModel", "sendThr: " + data);
                 } catch (Exception e) {
                     Log.d("AppModel", "sendThr: " + e.toString());
                 }
@@ -82,7 +86,7 @@ public class AppModel {
                 try {
                     mOut.print("set /controls/flight/rudder " + data + "\r\n");
                     mOut.flush();
-//                    Log.d("AppModel", "sendRud: " + data);
+                    Log.d("AppModel", "sendRud: " + data);
                 } catch (Exception e) {
                     Log.d("AppModel", "sendRud: " + e.toString());
                 }
@@ -100,7 +104,7 @@ public class AppModel {
                     mOut.flush();
                     mOut.print("set /controls/flight/rudder " + dataEle + "\r\n");
                     mOut.flush();
-//                    Log.d("AppModel", "sendJoyStickUpdate: ali : " + dataAil + "ele : " + dataEle);
+                    Log.d("AppModel", "sendJoyStickUpdate: ali : " + dataAil + "ele : " + dataEle);
                 } catch (Exception e) {
                     Log.d("AppModel", "sendJoyStickUpdate: " + e.toString());
                 }

@@ -55,10 +55,13 @@ public class AppViewModel extends BaseObservable implements JoyStick.JoystickLis
                 + " valid: " + mAppModel.getPort());
             mAppModel.connect();
             Log.d("AppModel", "onLoginClicked: after connection");
-            setToastMessage(successMessage);
-        /*
-        maybe the joy-stick will appear now?
-         */
+            if(mAppModel.getmIsConnected()){
+                setToastMessage(successMessage);
+            }
+            else {
+                setToastMessage(errorMessage);
+                Log.d("AppModel", "onLoginClicked:valid_IP_Port: IP or Port not valid");
+            }
         } else {
             setToastMessage(errorMessage);
             Log.d("AppModel", "onLoginClicked:valid_IP_Port: IP or Port not valid");
